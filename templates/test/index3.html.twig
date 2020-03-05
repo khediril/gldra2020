@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block title %}index3{% endblock %}
+{% block body %}
+
+<h1>Les Noms</h1>
+<ul>
+{% for name in names %}
+        <li>{{ name }}</li>
+    {% endfor %}
+</ul>
+<a href="{{path('somme',{'n1':20,'n2':30})}}">aller à la page somme</a>
+{% endblock %}
+
