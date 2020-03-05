@@ -13,11 +13,30 @@ use Symfony\Component\HttpFoundation\Response;
 class TestController extends AbstractController
 {
     /**
-     * @Route("/test", name="test")
+     * @Route("/", name="index")
      */
     public function index()
     {
         return $this->render('test/index.html.twig', [
+            'controller_name' => 'TestController',
+        ]);
+    }
+    /**
+     * @Route("/produit/list", name="produit.list")
+     */
+    public function list()
+    {
+        return $this->render('produit/list.html.twig', [
+            'controller_name' => 'TestController',
+        ]);
+    }
+    
+    /**
+     * @Route("/test", name="test")
+     */
+    public function index0()
+    {
+        return $this->render('test/index0.html.twig', [
             'controller_name' => 'TestController',
         ]);
     }

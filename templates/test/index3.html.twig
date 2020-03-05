@@ -1,8 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
+
 {% block title %}index3{% endblock %}
 {% block body %}
 
 <h1>Les Noms</h1>
+<img src="{{asset('images/photo.jpeg')}}">
 <ul>
 {% for name in names %}
         <li>{{ name }}</li>
