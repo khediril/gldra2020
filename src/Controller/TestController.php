@@ -30,6 +30,15 @@ class TestController extends AbstractController
             'controller_name' => 'TestController',
         ]);
     }
+    /**
+     * @Route("/about", name="about")
+     */
+    public function about()
+    {
+        return $this->render('about.html.twig', [
+            'controller_name' => 'TestController',
+        ]);
+    }
     
     /**
      * @Route("/test", name="test")
