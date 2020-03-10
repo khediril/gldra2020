@@ -22,7 +22,7 @@ class TestController extends AbstractController
         ]);
     }
     /**
-     * @Route("/produit/list", name="produit.list")
+     * @Route("/produit/list", name="produit2.list")
      */
     public function list()
     {

@@ -1,0 +1,23 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}List{% endblock %}
+
+{% block body %}
+
+<h1 class="text-white bg-dark">liste de tous les produits</h1>
+<table class="table table-dark">
+<th> Nom produit </th>
+  <th> Prix du produit </th>
+  <th> Description </th>
+{% for p in produits%}
+<tr>
+  <td>{{ p.id}}</td>
+  <td>{{ p.name}}</td>
+  <td>{{ p.price}}</td>
+   <td><a href="{{ path('show',{'id':p.id })}}">Voir Détails</a></td>
+</tr>
+{% else %}   
+  <h2> la table produit est vide </h2>
+{% endfor %}
+</table>
+{% endblock %}
