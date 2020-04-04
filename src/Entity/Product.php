@@ -40,7 +40,7 @@ class Product
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Fournisseur", mappedBy="Products")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Fournisseur", mappedBy="products")
      */
     private $fournisseurs;
 

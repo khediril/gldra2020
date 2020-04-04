@@ -12,64 +12,38 @@ use App\Repository\FournisseurRepository;
 
 class AppFixtures extends Fixture
 {
-    private $frepo;
-    public function __construct(FournisseurRepository $f)
-    {
-        $this->frepo=$f;
-    }
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create();
-        
-        
-        for ($i = 0; $i < 6; $i++) {
+     
+        for ($i = 0; $i < 6; $i++)
+        {
             $categ = new Category();
             $categ->setName("categorie" . $i);
             $manager->persist($categ);
             $limit=rand(5,10);
-            for ($j = 0; $j < $limit; $j++) {
+            for ($j = 0; $j < $limit; $j++)
+            {
                 $product = new Product();
-                $product->setName("Produit" . $j);
+                $product->setName("Produit".$j);
                 $product->setPrice(100*$j);
                 $product->setDescription($faker->address);
                 $product->setCategory($categ);
-    
-                $manager->persist($product);
-                $manager->flush();
-                //var_dump($product);
-                //echo "******************/n";
-                
-                
-            }
-            for($k=0;$k<5;$k++)
+                $manager->persist($product);  
+
+                $limit = rand(1,5);
+                for($k=0;$k<$limit;$k++)
                 {
                     $four=new Fournisseur();
                     $four->setName($faker->name);
-                    $four->setAdresse($faker->address);
-                    //var_dump($four->getProducts());
-                    //$four->addProduct($product);
-                    $manager->persist($four);
-                   // $product->addFournisseur($four);
-                   // $manager->persist($product);
-                }
-               
-            
-           
+                    $four->setAdresse($faker->address);           
+                    $manager->persist($four); 
+                    $product->addFournisseur($four);
+                    $manager->persist($product); 
+                   
+                }   
+            } 
         }
-       // $manager->flush();
-       // $prods=$manager->getRepository(Product::class)->findAll();
-        //var_dump($prods[0]);
-        //       foreach($prods as $key=>$p)
-        //       {
-        //          
-        //               $four= $this->frepo->find(rand(1,30));
-        //               var_dump($four);
-        //               echo("/n*********************************/n");
-        //               $p->addFournisseur($four);
-                  
-
-        //       } 
-
-               $manager->flush();
+        $manager->flush();
     }
 }
