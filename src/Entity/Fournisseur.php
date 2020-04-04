@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\FournisseurRepository")
  */
-class Category
+class Fournisseur
 {
     /**
      * @ORM\Id()
@@ -24,13 +24,18 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $adresse;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="fournisseurs")
      */
     private $products;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+        $this->Products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -50,19 +55,31 @@ class Category
         return $this;
     }
 
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Product[]
      */
-    public function getProducts(): Collection
+    public function getProducts(): ArrayCollection
     {
         return $this->products;
     }
 
     public function addProduct(Product $product): self
     {
+        
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
-            $product->setCategory($this);
         }
 
         return $this;
@@ -72,10 +89,6 @@ class Category
     {
         if ($this->products->contains($product)) {
             $this->products->removeElement($product);
-            // set the owning side to null (unless already changed)
-            if ($product->getCategory() === $this) {
-                $product->setCategory(null);
-            }
         }
 
         return $this;

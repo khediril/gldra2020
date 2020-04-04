@@ -85,11 +85,11 @@ class ProductController extends AbstractController
         ]);
     }
      /**
-     * @Route("/show/{id}", name="show")
+     * @Route("/show/{id}", name="produit.show")
      */
     public function show($id)
     {
-        $etudiants=
+        
         $produit=$this->getDoctrine()->getRepository(Product::class)->find($id);
       
         if (!$produit) {

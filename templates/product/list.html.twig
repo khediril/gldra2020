@@ -14,7 +14,7 @@
   <td>{{ p.id}}</td>
   <td>{{ p.name}}</td>
   <td>{{ p.price}}</td>
-   <td><a href="{{ path('show',{'id':p.id })}}">Voir Détails</a></td>
+   <td><a href="{{ path('produit.show',{'id':p.id })}}">Voir Détails</a></td>
 </tr>
 {% else %}   
   <h2> la table produit est vide </h2>
