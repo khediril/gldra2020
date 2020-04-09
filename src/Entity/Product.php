@@ -5,6 +5,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -128,5 +133,24 @@ class Product
         }
 
         return $this;
+    }
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('name', new NotBlank());
+        $metadata->addPropertyConstraint('name', new Assert\Length([
+            'min' => 5,
+            'max' => 10,
+            'minMessage' => 'le nom doit avoir au mi,minimum {{ limit }} characters long',
+            'maxMessage' => 'Your first name cannot be longer than {{ limit }} characters',
+            'allowEmptyString' => false,
+        ]));
+        $metadata->addPropertyConstraint('price', new NotBlank());
+
+
+       /* $metadata->addPropertyConstraint('dueDate', new NotBlank());
+        $metadata->addPropertyConstraint(
+            'dueDate',
+            new Type(\DateTime::class)
+        );*/
     }
 }

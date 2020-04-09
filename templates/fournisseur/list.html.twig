@@ -1,0 +1,25 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}List{% endblock %}
+
+{% block body %}
+
+<h1 class="text-white bg-dark">liste de tous les produits</h1>
+<table class="table table-dark">
+<th>
+<td> id fournisseur </td>
+<td> Nom fournisseur </td>
+  <td> adresse du fournisseur </td>
+ 
+<th>  
+{% for f in fournisseurs%}
+<tr>
+  <td>{{ f.id}}</td>
+  <td>{{ f.name}}</td>
+ <td>{{ f.adresse}}</td>
+</tr>
+{% else %}   
+  <h2> la table fournisseur est vide </h2>
+{% endfor %}
+</table>
+{% endblock %}

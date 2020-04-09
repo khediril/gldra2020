@@ -1,10 +1,18 @@
-{% extends 'base.html.twig' %}
-
+{{ include('category/_base.html.twig') }}
 {% block title %}Category index{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
-
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3">Liste de Toutes les categories</h1>
+            <hr class="my-2">
+            <p>More info</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">Jumbo action name</a>
+            </p>
+        </div>
+    </div>
+  <div class="bg-light mx-auto">
     <table class="table">
         <thead>
             <tr>
@@ -30,6 +38,7 @@
         {% endfor %}
         </tbody>
     </table>
-
     <a href="{{ path('category_new') }}">Create new</a>
+  </div>
+    
 {% endblock %}

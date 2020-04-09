@@ -3,10 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Category;
 use App\Repository\ProductRepository;
-
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * @Route("/product")
  */
@@ -137,5 +143,50 @@ class ProductController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('product.list');
     }
+    /**
+     * @Route("/formadd", name="product_formadd")
+     */
+    public function formadd(Request $request)
+    {
+        $produit=new Product();
+
+        $form = $this->createFormBuilder($produit)
+            ->add('name', TextType::class)
+            ->add('price', IntegerType::class)
+            ->add('description', TextareaType::class)
+            ->add('category', EntityType::class, [
+                // looks for choices from this entity
+                'class' => Category::class,
+            
+                // uses the User.username property as the visible option string
+                'choice_label' => 'name',
+            
+                // used to render a select box, check boxes or radios
+                // 'multiple' => true,
+                // 'expanded' => true,
+            ])
+            ->add('save', SubmitType::class, ['label' => 'Ajouter'])
+            ->getForm();
+       
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // $form->getData() holds the submitted values
+                // but, the original `$task` variable has also been updated
+                //$task = $form->getData();
+        
+                // ... perform some action, such as saving the task to the database
+                // for example, if Task is a Doctrine entity, save it!
+                 $entityManager = $this->getDoctrine()->getManager();
+                 $entityManager->persist($produit);
+                 $entityManager->flush();
+        
+                return $this->redirectToRoute('product.list');
+            }
+       
+        return $this->render('product/formadd.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    
 
 }

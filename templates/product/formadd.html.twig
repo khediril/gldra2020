@@ -1,0 +1,64 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Ajouter produit{% endblock %}
+
+{% block body %}
+<div class="bg-light mt-3">
+    <h1 class="text-light">Ajout d'un nouveau produit</h1>
+    {# form_start(form) #}
+    {# form_widget(form) #}
+    {# form_end(form) #}
+</div>
+<hr>
+{{ form_start(form) }}
+<div class="bg-light">
+    
+
+    <div>
+        <i class="fa fa-calendar"></i> {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+
+        <small>{{ form_help(form.name) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.name) }}
+        </div>
+
+    </div>
+    <div>
+        <i class="fa fa-calendar"></i> {{ form_label(form.price) }}
+        {{ form_widget(form.price) }}
+
+        <small>{{ form_help(form.price) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.price) }}
+        </div>
+
+    </div>
+    <div>
+        
+            {{ form_errors(form.description) }}
+        
+        <i class="fa fa-calendar"></i> {{ form_label(form.description) }}
+        {{ form_widget(form.description) }} {{ form_errors(form.description) }}
+
+        <small>{{ form_help(form.description) }}</small>
+
+    </div>
+    <div>
+        <i class="fa fa-calendar"></i> {{ form_label(form.category) }}
+        {{ form_widget(form.category) }}
+
+        <small>{{ form_help(form.category) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.category) }}
+        </div>
+
+    </div>
+  
+
+</div>
+{{ form_end(form) }}
+{% endblock %}
