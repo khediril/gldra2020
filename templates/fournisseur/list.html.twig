@@ -4,19 +4,23 @@
 
 {% block body %}
 
-<h1 class="text-white bg-dark">liste de tous les produits</h1>
+
+<h1 class="text-white bg-dark"> Liste de tous les fournisseurs</h1>
+<h1 class="text-white bg-dark"> {{ info }}</h1>
 <table class="table table-dark">
-<th>
+<tr>
 <td> id fournisseur </td>
 <td> Nom fournisseur </td>
   <td> adresse du fournisseur </td>
+  <td> Modifier </td>
  
-<th>  
+<tr>  
 {% for f in fournisseurs%}
 <tr>
   <td>{{ f.id}}</td>
   <td>{{ f.name}}</td>
  <td>{{ f.adresse}}</td>
+ <td> <a href="{{ path('fournisseur_edit',{'id':f.id})}}"> Modifier </a></td>
 </tr>
 {% else %}   
   <h2> la table fournisseur est vide </h2>

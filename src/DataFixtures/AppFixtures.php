@@ -14,12 +14,13 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        $names=['c1','c2','légumes','vetement','c3','c4'];
         $faker = Factory::create();
      
         for ($i = 0; $i < 6; $i++)
         {
             $categ = new Category();
-            $categ->setName("categorie" . $i);
+            $categ->setName($names[$i]);
             $manager->persist($categ);
             $limit=rand(5,10);
             for ($j = 0; $j < $limit; $j++)
@@ -45,5 +46,13 @@ class AppFixtures extends Fixture
             } 
         }
         $manager->flush();
+
+                   
+
+
+
+
+
+
     }
 }
