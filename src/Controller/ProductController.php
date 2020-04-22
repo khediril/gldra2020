@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Repository\ProductRepository;
+use App\Service\SiteUpdateManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -16,6 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Doctrine\Common\Annotations\Reader;
+use Symfony\Component\Serializer\Encoder\EncoderInterface;
 
 /**
  * @Route("/product")
@@ -26,17 +29,20 @@ class ProductController extends AbstractController
 
     public function __construct(ProductRepository $r)
     {
+        
         $this->repo = $r;
     }
 
     /**
      * @Route("/add", name="product_add")
      */
-    public function add()
+    public function add(EncoderInterface $encoder)
     {
         $produit = new Product();
 
         $produit->setName("tomate");
+        $nameEncoded = $encoder->encode($produit->getName(0),'JSON');
+        
         $produit->setPrice(1200);
         $produit->setDescription("Description de tomate");
 
@@ -72,11 +78,11 @@ class ProductController extends AbstractController
     /**
      * @Route("/list", name="product.list")
      */
-    public function list()
+    public function list(ProductRepository $r)  
     {
-        $produits = $this->getDoctrine()->getRepository(Product::class)->findAll();
-
-
+        //$produits = $this->getDoctrine()->getRepository(Product::class)->findAll();
+        //$produits=$r->findAll();
+         $produits=$this->repo->findAll();
 
         return $this->render('product/list.html.twig', [
             'produits' => $produits,
@@ -149,7 +155,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/formadd", name="product_formadd")
      */
-    public function formadd(Request $request)
+    public function formadd(Request $request, SiteUpdateManager $siteUpdatemg)
     {
         $produit = new Product();
 
@@ -238,7 +244,8 @@ class ProductController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($produit);
             $entityManager->flush();
-
+            $this->addFlash('succes','Le produit est ajouté avec succés...');
+            $siteUpdatemg->notifyOfSiteUpdate();
             return $this->redirectToRoute('product.list');
         }
 

@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-
+use App\Service\MessageGenerator;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,16 +14,25 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class TestController extends AbstractController
 {
+    private $messager;
+    public function __construct(MessageGenerator $mes)
+    {
+       $this->messager=$mes;
+    }
     /**
      * @Route("/", name="index")
      */
     public function index(SessionInterface $masession)
     {
+       
+        $message=$this->messager->getHappyMessage();
+       // $ser=$this->container->get('twig');
         $masession->set('info','boubaker');
         return $this->render('test/index.html.twig', [
-            'controller_name' => 'TestController',
+            'controller_name' => 'TestController','message'=>$message
         ]);
     }
+    
     /**
      * @Route("/produit/list", name="produit2.list")
      */
