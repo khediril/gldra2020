@@ -25,11 +25,20 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *       'min' = 5,
+     *       'max' = 10,
+     *       'minMessage' = 'le nom doit avoir au mi,minimum {{ limit }} characters long',
+     *       'maxMessage' = 'Your first name cannot be longer than {{ limit }} characters',
+     *       'allowEmptyString' = false,
+     *   )
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\NotBlank
      */
     private $price;
 
@@ -141,7 +150,7 @@ class Product
 
         return $this;
     }
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
+   /* public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('name', new NotBlank());
         $metadata->addPropertyConstraint('name', new Assert\Length([
@@ -154,12 +163,8 @@ class Product
         $metadata->addPropertyConstraint('price', new NotBlank());
 
 
-       /* $metadata->addPropertyConstraint('dueDate', new NotBlank());
-        $metadata->addPropertyConstraint(
-            'dueDate',
-            new Type(\DateTime::class)
-        );*/
-    }
+       
+    }/*/
 
     public function getImage(): ?string
     {

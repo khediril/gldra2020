@@ -7,10 +7,10 @@ class MessageGenerator
 {
     private $logger;
     private $name;
-    public function __construct(LoggerInterface $log,$name)
+    public function __construct(LoggerInterface $logger,$name)
     {
         
-        $this->logger=$log;
+        $this->logger=$logger;
         $this->name=$name;
     }
     public function getHappyMessage()
