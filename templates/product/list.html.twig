@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<h1 class="text-white bg-dark">liste de tous les produits</h1>
+<h1 class="text-white bg-dark">liste de tous les produits - utilisateur connecter : {{ firstname }}</h1>
 <h2 class="text-white bg-dark">
 {% for message in app.flashes('succes')%}
     {{ message }}

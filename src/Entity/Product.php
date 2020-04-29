@@ -27,12 +27,12 @@ class Product
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(
-     *       'min' = 5,
-     *       'max' = 10,
-     *       'minMessage' = 'le nom doit avoir au mi,minimum {{ limit }} characters long',
-     *       'maxMessage' = 'Your first name cannot be longer than {{ limit }} characters',
-     *       'allowEmptyString' = false,
-     *   )
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters",
+     *      allowEmptyString = false
+     * )
      */
     private $name;
 

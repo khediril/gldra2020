@@ -19,9 +19,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Doctrine\Common\Annotations\Reader;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/product")
+ * 
  */
 class ProductController extends AbstractController
 {
@@ -75,17 +77,22 @@ class ProductController extends AbstractController
             'produit' => $produit,
         ]);
     }
+   
+   
     /**
      * @Route("/list", name="product.list")
+     * 
      */
     public function list(ProductRepository $r)  
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         //$produits = $this->getDoctrine()->getRepository(Product::class)->findAll();
         //$produits=$r->findAll();
-         $produits=$this->repo->findAll();
+        $user = $this->getUser(); 
+        $produits=$this->repo->findAll();
 
         return $this->render('product/list.html.twig', [
-            'produits' => $produits,
+            'produits' => $produits,'firstname'=>$user->getUsername(),
         ]);
     }
     /**

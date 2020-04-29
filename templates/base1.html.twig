@@ -52,6 +52,21 @@
           <li class="nav-item px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{{ path('category_index')}}">Catègories</a>
           </li>
+          {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+          <li class="nav-item px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{{ path('app_login')}}">Se connecter</a>
+          </li>
+          {% endif %}
+          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+           <li class="nav-item px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{{ path('app_logout')}}">Se déconnecter</a>
+            - Email: {{ app.user.email }}
+          </li>
+           <li class="nav-item px-lg-4">
+            <span class="nav-link text-uppercase text-expanded" >Vous êtes : {{ app.user.firstName }}</span>
+            
+          </li>
+            {% endif %}
         </ul>
       </div>
     </div>
