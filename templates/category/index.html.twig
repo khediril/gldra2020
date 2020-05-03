@@ -1,44 +1,45 @@
-{{ include('category/_base.html.twig') }}
-{% block title %}Category index{% endblock %}
+{% extends 'basepage.html.twig' %}
+{% block title %}Category index
+{% endblock %}
+{% block titre %}
+	Liste des catégories
+{% endblock %}
+{% block corps %}
 
-{% block body %}
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-3">Liste de Toutes les categories</h1>
-            <hr class="my-2">
-            <p>More info</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">Jumbo action name</a>
-            </p>
-        </div>
-    </div>
-  <div class="bg-light mx-auto">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for category in categories %}
-            <tr>
-                <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
-                <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{{ path('category_new') }}">Create new</a>
-  </div>
-    
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th colspan="2">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for category in categories %}
+				<tr>
+					<td>{{ category.id }}</td>
+					<td>{{ category.name }}</td>
+					<td>
+
+						<a href="{{ path('category_show', {'id': category.id})}}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Détail</a>
+					</td>
+					<td>
+
+
+						<a href="{{ path('category_edit', {'id': category.id})}}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Modifier</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">Aucune catégorie trouvée</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+
+{% endblock %}
+{% block boutons %}
+	<a href="{{ path('category_new')}}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Creér une catégorie</a>
 {% endblock %}

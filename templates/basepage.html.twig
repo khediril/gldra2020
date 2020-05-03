@@ -1,0 +1,42 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}List
+{% endblock %}
+
+{% block body %}
+
+	<section class="page-section cta">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-12 mx-auto">
+					
+					<div class="cta-inner text-center rounded">
+						<h2 class="section-heading mb-4">
+							<span class="section-heading-upper">
+							</span>
+							<span class="section-heading-lower">{% block titre %}{% endblock %}
+							</span>
+                            
+						</h2>
+						<div>
+							{% block corps%}{% endblock %}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+					<div class="col-xl-12 text-center">
+						<div class="mt-2 mx-auto ">
+							
+								{% block boutons %}{% endblock %}
+							
+						</div>
+					</div>
+				</div>
+		</div>
+	</section>
+
+
+	
+{% endblock %}

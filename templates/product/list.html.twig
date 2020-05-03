@@ -1,33 +1,48 @@
-{% extends 'base1.html.twig' %}
+{% extends 'basepage.html.twig' %}
 
-{% block title %}List{% endblock %}
+{% block title %}List produit
+{% endblock %}
+{% block titre %}
+	Liste des produits
+{% endblock %}
 
-{% block body %}
+{% block corps %}
+	<div>
+		<table class="table">
+			<tr>
+				<td>
+					Nom produit
+				</td>
+				<td>
+					Prix du produit
+				</td>
+				<td>
+					Description
+				</td>
+				<td>
+					Image
+				</td>
+			</tr>
+			{% for p in produits%}
+				<tr>
+					<td>{{ p.id}}</td>
+					<td>{{ p.name}}</td>
+					<td>{{ p.price}}
+					</td>
+					<td>
 
-<h1 class="text-white bg-dark">liste de tous les produits - utilisateur connecter : {{ firstname }}</h1>
-<h2 class="text-white bg-dark">
-{% for message in app.flashes('succes')%}
-    {{ message }}
-{% endfor %}
-</h2>
-
-<table class="table table-dark">
-<th>
-<td> Nom produit </td>
-  <td> Prix du produit </td>
-  <td> Description </td>
-  <td> Image </td>
-<th>  
-{% for p in produits%}
-<tr>
-  <td>{{ p.id}}</td>
-  <td>{{ p.name}}</td>
-  <td>{{ p.price}}</td>
-   <td><a href="{{ path('produit.show',{'id':p.id })}}">Voir Détails</a></td>
-    <td><img src="{{ asset('uploads/images/' ~ p.image) }}"></td>
-</tr>
-{% else %}   
-  <h2> la table produit est vide </h2>
-{% endfor %}
-</table>
+						<a href="{{ path('produit.show',{'id':p.id })}}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Détails</a>
+					</td>
+					<td><img src="{{ asset('images/cafesmall.jpg') }}"></td>
+				</tr>
+			{% else %}
+				<h2>
+					la table produit est vide
+				</h2>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}
+{% block boutons %}
+		<a href="{{ path('product_formadd')}}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Ajouter un produit</a>
 {% endblock %}

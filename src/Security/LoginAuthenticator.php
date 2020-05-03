@@ -85,7 +85,9 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
      */
     public function getPassword($credentials): ?string
     {
+        //dd($credentials);
         return $credentials['password'];
+       
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
