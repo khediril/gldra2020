@@ -82,6 +82,9 @@ class ProductController extends AbstractController
     /**
      * @Route("/list", name="product.list")
      * 
+     * 
+     *
+     * 
      */
     public function list(ProductRepository $r)  
     {

@@ -56,7 +56,10 @@ class TestController extends AbstractController
      * @Route("/test", name="test")
      */
     public function index0()
+
     {
+        $param1=$this->getParameter('name');
+        dd($param1);
         return $this->render('test/index0.html.twig', [
             'controller_name' => 'TestController',
         ]);
